@@ -26,7 +26,7 @@ class UserJdbcTemplateRepositoryTest {
         knownGoodState.set();
     }
 
-
+// commment to instantiate branch
 
     @Test
     void shouldFindAllUsers() {
