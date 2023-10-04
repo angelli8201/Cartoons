@@ -9,11 +9,17 @@ public class Post {
     private String title;
     private String caption;
     private String reference;
+    private int userId;
 
-    public Post(int postId, String title, String caption) {
+    public Post(int postId, String title, String caption, int userId) {
         this.postId = postId;
         this.title = title;
         this.caption = caption;
+        this.userId = userId;
+    }
+
+    public Post() {
+
     }
 
     public int getPostId() {
@@ -48,16 +54,24 @@ public class Post {
         this.reference = reference;
     }
 
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Post post = (Post) o;
-        return postId == post.postId && Objects.equals(title, post.title) && Objects.equals(caption, post.caption) && Objects.equals(reference, post.reference);
+        return postId == post.postId && userId == post.userId && Objects.equals(title, post.title) && Objects.equals(caption, post.caption) && Objects.equals(reference, post.reference);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(postId, title, caption, reference);
+        return Objects.hash(postId, title, caption, reference, userId);
     }
 }
