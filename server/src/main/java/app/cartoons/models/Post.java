@@ -6,18 +6,14 @@ import java.util.Objects;
 public class Post {
 
     private int postId;
-    private String name;
-    private Date dateCreated;
-
+    private String title;
+    private String caption;
     private String reference;
 
-    public Post(int postId, String name, Date dateCreated) {
+    public Post(int postId, String title, String caption) {
         this.postId = postId;
-        this.name = name;
-        this.dateCreated = dateCreated;
-    }
-
-    public Post() {
+        this.title = title;
+        this.caption = caption;
     }
 
     public int getPostId() {
@@ -28,20 +24,20 @@ public class Post {
         this.postId = postId;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public Date getDateCreated() {
-        return dateCreated;
+    public String getCaption() {
+        return caption;
     }
 
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
+    public void setCaption(String caption) {
+        this.caption = caption;
     }
 
     public String getReference() {
@@ -57,11 +53,11 @@ public class Post {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Post post = (Post) o;
-        return postId == post.postId && Objects.equals(name, post.name) && Objects.equals(dateCreated, post.dateCreated) && Objects.equals(reference, post.reference);
+        return postId == post.postId && Objects.equals(title, post.title) && Objects.equals(caption, post.caption) && Objects.equals(reference, post.reference);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(postId, name, dateCreated, reference);
+        return Objects.hash(postId, title, caption, reference);
     }
 }
