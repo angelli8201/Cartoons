@@ -9,7 +9,7 @@ public interface PostRepository {
 
     Post findById(int postId);
 
-    boolean add(Post post);
+    Post add(Post post);
 
     boolean update(Post post);
 

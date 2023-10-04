@@ -2,8 +2,11 @@ package app.cartoons.data;
 
 import app.cartoons.data.mappers.PostMapper;
 import app.cartoons.models.Post;
+import app.cartoons.models.User;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class PostJdbcTemplateRepository implements PostRepository {
@@ -36,15 +39,21 @@ public class PostJdbcTemplateRepository implements PostRepository {
     }
 
     @Override
-    public boolean add(Post post) {
+    public Post add(Post post) {
+        SimpleJdbcInsert insert = new SimpleJdbcInsert(jdbcTemplate)
+                .withTableName("post")
+                .usingColumns("title","caption","`reference`","user_id")
+                .usingGeneratedKeyColumns("post_id");
+        HashMap<String,Object> args = new HashMap<>();
+        args.put("title", post.getTitle());
+        args.put("caption", post.getCaption());
+        args.put("reference", post.getReference());
+        args.put("user_id", post.getUserId());
 
-        final String sql = "insert into post(title, caption, `reference`, user_id) values (?, ?, ?, ?);";
+        int postId = insert.executeAndReturnKey(args).intValue();
+        post.setPostId(postId);
+        return post;
 
-        return jdbcTemplate.update(sql,
-                post.getTitle(),
-                post.getCaption(),
-                post.getReference(),
-                post.getUserId()) > 0;
     }
 
     @Override
