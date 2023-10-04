@@ -3,8 +3,10 @@ package app.cartoons.data;
 import app.cartoons.models.User;
 import app.cartoons.data.mappers.UserMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Repository
@@ -36,13 +38,19 @@ public class UserJdbcTemplateRepository implements UserRepository {
     }
 
     @Override
-    public boolean add(User user) {
+    public User add(User user) {
+        SimpleJdbcInsert insert = new SimpleJdbcInsert(jdbcTemplate)
+                .withTableName("user")
+                .usingColumns("user_name","pass_word")
+                .usingGeneratedKeyColumns("user_id");
+        HashMap<String,Object> args = new HashMap<>();
+        args.put("user_name", user.getUserName());
+        args.put("pass_word", user.getPassWord());
 
-        final String sql = "insert into `user`(user_name, pass_word) values (?, ?);";
+        int userId = insert.executeAndReturnKey(args).intValue();
+        user.setUserId(userId);
+        return user;
 
-        return jdbcTemplate.update(sql,
-                user.getUserName(),
-                user.getPassWord()) > 0;
     }
 
     @Override
