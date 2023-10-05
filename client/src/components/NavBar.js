@@ -1,29 +1,70 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Navbar, Container, Nav, Modal, Button, Form } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import "../styles/NavBar.css"
 
 import SignInModal from "./SignInModal";
+import SignUpModal from "./SignUpModal";
+import { addUser } from "../services/userService";
 
 function NavBar() {
   const [signedIn, setSignedIn] = useState(false);
+  const [errors, setErrors] = useState(false);
   const [showSignInModal, setShowSignInModal] = useState(false);
+  const [showSignUpModal, setShowSignUpModal] = useState(false);
+  const [user, setUser] = useState("");
   const [userName, setUserName] = useState("");
+  const [passWord, setPassWord] = useState("");
 
-  const handleSignIn = () => {
+  const handleSignInSuccess = () => {
     setSignedIn(true);
     setShowSignInModal(false);
+    resetModal();
   };
-
+  
   const handleSignOut = () => {
-    setUserName("");
+    resetModal();
+    setUser("");
     setSignedIn(false);
   };
 
   const toggleSignInModal = () => {
-    console.log("Toggle modal");
+    resetModal();
     setShowSignInModal(!showSignInModal);
   };
+
+  const toggleSignUpModal = () => {
+    resetModal();
+    setShowSignUpModal(!showSignUpModal);
+  };
+
+  const resetModal = () => {
+    setUserName("");
+    setPassWord("");
+    setErrors([]);
+  }
+
+  const handleSignUp = async (userName, passWord) => {
+    try {
+      const newUser = { userName, passWord };
+      console.log(newUser);
+      const response = await addUser(newUser);
+      setUser(newUser);
+      toggleSignInModal()
+      if (response === null) {
+        toggleSignUpModal();
+      } else {
+        console.error("User creation failed:", response);
+        setErrors(response);
+      }
+    } catch (error) {
+      console.error("An error occurred during sign-up:", error);
+      setErrors([error.message]);
+    }
+  };
+
+
 
   return (
     <div>
@@ -53,15 +94,20 @@ function NavBar() {
             <Navbar.Text>
               {signedIn ? (
                 <>
-                  Signed in as: {userName}{" "}
-                  <Button variant="link" onClick={handleSignOut}>
+                  Signed in as: {user.userName}{" "}
+                  <Button className="btn btn-danger custom-button-sign-out" onClick={handleSignOut}>
                     Sign Out
                   </Button>
                 </>
               ) : (
-                <Button variant="link" onClick={toggleSignInModal}>
-                  Sign In
-                </Button>
+                <>
+                  <Button className="btn btn-secondary custom-button-sign-in" onClick={toggleSignInModal}>
+                    Sign In
+                  </Button>
+                  <Button className="btn btn-dark custom-button-sign-up" onClick={toggleSignUpModal}>
+                    Sign Up
+                  </Button>
+                </>
               )}
             </Navbar.Text>
           </Navbar.Collapse>
@@ -71,8 +117,27 @@ function NavBar() {
       <SignInModal
         showSignInModal={showSignInModal}
         toggleSignInModal={toggleSignInModal}
+        toggleSignUpModal={toggleSignUpModal}
         setUserName={setUserName}
-        handleSignIn={handleSignIn}
+        setPassWord={setPassWord}
+        setUser={setUser}
+        user={user}
+        userName={userName}
+        passWord={passWord}
+        handleSignInSuccess={handleSignInSuccess}
+        setErrors={setErrors}
+        errors={errors}
+      />
+      <SignUpModal
+        showSignUpModal={showSignUpModal}
+        toggleSignUpModal={toggleSignUpModal}
+        toggleSignInModal={toggleSignInModal}
+        setUserName={setUserName}
+        setPassWord={setPassWord}
+        userName={userName}
+        passWord={passWord}
+        handleSignUp={handleSignUp}
+        errors={errors}
       />
     </div>
   );

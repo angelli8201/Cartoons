@@ -28,7 +28,7 @@ export async function findUserById(userId) {
 	}
 }
 
-async function addUser(user) {
+export async function addUser(user) {
 	const init = {
 		method: 'POST',
 		headers: {
@@ -50,7 +50,7 @@ async function addUser(user) {
 	}
 }
 
-async function updateUser(user) {
+export async function updateUser(user) {
 	const init = {
 		method: 'PUT',
 		headers: {
