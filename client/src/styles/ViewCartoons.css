@@ -1,0 +1,9 @@
+.cartoon-list-container {
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 87vh;
+    padding: 20px;
+    border-radius: 5px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    border: 1px solid black;
+  }

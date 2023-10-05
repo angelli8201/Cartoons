@@ -1,0 +1,38 @@
+[
+    {
+      "title": "Reboot",
+      "year": 1994,
+      "creator": [
+        "Gavin Blair",
+        "John Grace",
+        "Philip Mitchell"
+      ],
+      "rating": "TV-Y7",
+      "genre": [
+        "Adventure",
+        "Action"
+      ],
+      "runtime_in_minutes": 30,
+      "episodes": 47,
+      "image": "https://m.media-amazon.com/images/M/MV5BMTg1NzQ3NTI0MF5BMl5BanBnXkFtZTcwMzcwOTUyMQ@@._V1_.jpg",
+      "id": 1
+    },
+    {
+      "title": "Beast Wars",
+      "year": 1996,
+      "creator": [
+        "Steve Sacks",
+        "Colin Davies",
+        "John Pozer"
+      ],
+      "rating": "TV-Y7",
+      "genre": [
+        "Sci-Fi",
+        "Action"
+      ],
+      "runtime_in_minutes": 30,
+      "episodes": 52,
+      "image": "https://m.media-amazon.com/images/M/MV5BNDUxODg4MzE5NV5BMl5BanBnXkFtZTYwNDA0OTc4._V1_.jpg",
+      "id": 2
+    }
+  ]
