@@ -2,10 +2,12 @@ package app.cartoons.domain;
 
 import app.cartoons.data.PostRepository;
 import app.cartoons.models.Post;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@Service
 public class PostService {
     private final PostRepository repository;
 
