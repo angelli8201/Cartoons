@@ -46,6 +46,9 @@ function NavBar() {
               <LinkContainer to="/posts">
                 <Nav.Link>Posts</Nav.Link>
               </LinkContainer>
+              <LinkContainer to="/memes">
+                <Nav.Link>Memes</Nav.Link>
+              </LinkContainer>
             </Nav>
             <Navbar.Text>
               {signedIn ? (
