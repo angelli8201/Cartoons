@@ -87,6 +87,8 @@ class UserJdbcTemplateRepositoryTest {
 
         boolean updated = repository.update(shouldNotUpdateUser);
 
+        assertFalse(updated);
+
     }
 
     @Test
