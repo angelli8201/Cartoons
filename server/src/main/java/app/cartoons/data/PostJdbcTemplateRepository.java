@@ -5,10 +5,12 @@ import app.cartoons.models.Post;
 import app.cartoons.models.User;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.List;
 
+@Repository
 public class PostJdbcTemplateRepository implements PostRepository {
 
     private final JdbcTemplate jdbcTemplate;
