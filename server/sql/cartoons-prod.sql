@@ -27,7 +27,7 @@ insert into `user`(user_id, user_name, pass_word) values
 	(2, 'Angel', '4321'),
 	(3, 'Patrick', '5678');
 	
-insert into post (post_id, title, caption, `reference`, user_id)
+insert into post (post_id, title, caption, reference, user_id)
 	values
 (1, 'Hello World!', 'So Funny!', 'Spongebob Squarepants',  1),
 (2, 'I am super cool!', 'Bet!', 'Gravity Falls', 2);

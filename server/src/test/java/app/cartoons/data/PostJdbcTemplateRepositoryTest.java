@@ -16,7 +16,7 @@ class PostJdbcTemplateRepositoryTest {
     static final int MISSING_ID = 99;
 
     @Autowired
-    PostJdbcTemplateRepository  repository;
+    PostJdbcTemplateRepository repository;
     @Autowired
     KnownGoodState knownGoodState;
 
@@ -29,14 +29,14 @@ class PostJdbcTemplateRepositoryTest {
     void findAll() {
         List<Post> posts = repository.findAll();
         assertNotNull(posts);
-    }
+    } //expecting user_name in post table
 
     @Test
     void findById() {
         Post testPost = repository.findById(1);
         assertEquals(1, testPost.getPostId());
         assertEquals("Hello World!", testPost.getTitle());
-    }
+    } // angry about reference
 
     @Test
     void add() {
@@ -47,9 +47,9 @@ class PostJdbcTemplateRepositoryTest {
         post.setUserId(1);
         post.setPostId(3);
 
-        boolean add = repository.add(post);
+        Post actual = repository.add(post);
 
-        assertTrue(add);
+        assertEquals(post, actual);
     }
 
     @Test
@@ -71,7 +71,7 @@ class PostJdbcTemplateRepositoryTest {
             boolean updated = repository.update(existingPost);
             assertEquals("Idaho", existingPost.getTitle());
         }
-    }
+    } // all of these tests are failing because of reference
 
     @Test
     void deleteById() {

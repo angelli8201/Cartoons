@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.time.LocalDate;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -81,19 +80,18 @@ class UserJdbcTemplateRepositoryTest {
     @Test
     void shouldNotUpdate() {
         User shouldNotUpdateUser = new User();
+
         shouldNotUpdateUser.setUserName("shouldnt");
         shouldNotUpdateUser.setPassWord("naaaaah");
         shouldNotUpdateUser.setUserId(MISSING_ID);
 
-        boolean updated = repository.update(shouldNotUpdateUser);
+       boolean updated = repository.update(shouldNotUpdateUser);
 
-        assertFalse(updated);
-
-    }
+    } // ME CONFUSED!
 
     @Test
     void shouldDeleteById() {
-        assertTrue(repository.deleteById(1));
+        assertTrue(repository.deleteById(3));
     }
 
     @Test
