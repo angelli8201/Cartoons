@@ -21,7 +21,7 @@ public class PostJdbcTemplateRepository implements PostRepository {
 
     @Override
     public List<Post> findAll() {
-        final String sql = "select * from post;";
+        final String sql = "select * from post";
 
         return jdbcTemplate.query(sql, new PostMapper());
     }
@@ -31,8 +31,8 @@ public class PostJdbcTemplateRepository implements PostRepository {
         final String sql = "select \n" +
                 "post_id,\n" +
                 "title,\n" +
-                "caption\n" +
-                "`reference`\n" +
+                "caption,\n" +
+                "`reference`,\n" +
                 "user_id\n" +
                 "from post\n" +
                 "where post_id = ?;";
