@@ -56,10 +56,9 @@ public class UserJdbcTemplateRepository implements UserRepository {
     @Override
     public boolean update(User user) {
 
-        final String sql = "update `user`\n" +
-                "set user_name = '?'\n" +
-                "set pass_word = '?'\n" +
-                "where user_id = ?;";
+        final String sql = "update `user` " +
+                "set user_name = ?, pass_word = ? " +
+                "where user_id = ?";
 
         return jdbcTemplate.update(sql,
                 user.getUserName(),

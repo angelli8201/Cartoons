@@ -81,11 +81,13 @@ class UserJdbcTemplateRepositoryTest {
     void shouldNotUpdate() {
         User shouldNotUpdateUser = new User();
 
-        shouldNotUpdateUser.setUserName("shouldnt");
+        shouldNotUpdateUser.setUserName("nope!");
         shouldNotUpdateUser.setPassWord("naaaaah");
         shouldNotUpdateUser.setUserId(MISSING_ID);
 
        boolean updated = repository.update(shouldNotUpdateUser);
+
+       assertFalse(updated);
 
     } // ME CONFUSED!
 
