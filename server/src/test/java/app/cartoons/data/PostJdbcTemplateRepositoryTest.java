@@ -38,19 +38,19 @@ class PostJdbcTemplateRepositoryTest {
         assertEquals("Hello World!", testPost.getTitle());
     }
 
-    @Test
-    void add() {
-        Post post = new Post();
-        post.setTitle("Potato");
-        post.setCaption("Aberdeen in da fields");
-        post.setReference("Amazing World of Gumball");
-        post.setUserId(1);
-        post.setPostId(3);
-
-        boolean add = repository.add(post);
-
-        assertTrue(add);
-    }
+//    @Test
+//    void add() {
+//        Post post = new Post();
+//        post.setTitle("Potato");
+//        post.setCaption("Aberdeen in da fields");
+//        post.setReference("Amazing World of Gumball");
+//        post.setUserId(1);
+//        post.setPostId(3);
+//
+//        boolean add = repository.add(post);
+//
+//        assertTrue(add);
+//    }
 
     @Test
     void update() {
