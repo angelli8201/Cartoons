@@ -77,4 +77,3 @@ public class UserJdbcTemplateRepository implements UserRepository {
         return jdbcTemplate.update(sql, userId) > 0;
     }
 }
-
