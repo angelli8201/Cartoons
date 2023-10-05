@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 class UserJdbcTemplateRepositoryTest {
 
-    final static int NEXT_ID = 4;
+  static final int MISSING_ID = 99;
 
     @Autowired
     UserJdbcTemplateRepository repository;
@@ -26,7 +26,7 @@ class UserJdbcTemplateRepositoryTest {
         knownGoodState.set();
     }
 
-// commment to instantiate branch
+
 
     @Test
     void shouldFindAllUsers() {
@@ -44,19 +44,59 @@ class UserJdbcTemplateRepositoryTest {
     }
 
     @Test
-    void add() {
-
-        User user = makeUser();
-        boolean actual = repository.add(user);
-        assertTrue(actual);
+    void shouldNotFindUser() {
+        User actual = repository.findById(MISSING_ID);
+        assertNull(actual);
     }
 
     @Test
-    void update() {
+    void shouldAdd() {
+        User user = new User();
+        user.setUserName("imAUser");
+        user.setPassWord("thisAPassword");
+
+        User actual = repository.add(user);
+        user.setUserId(5);
+        assertEquals(user, actual);
     }
 
     @Test
-    void deleteById() {
+    void shouldUpdate() {
+        User user = new User();
+        user.setUserName("testName");
+        user.setPassWord("unaPassword");
+        user.setUserId(6);
+
+        User existingUser = repository.findById(6);
+
+        if (existingUser != null) {
+            existingUser.setUserName("TESTNAME!");
+            existingUser.setPassWord("newPassword");
+
+            boolean updated = repository.update(existingUser);
+            assertTrue(updated);
+        }
+    }
+
+    @Test
+    void shouldNotUpdate() {
+        User shouldNotUpdateUser = new User();
+        shouldNotUpdateUser.setUserName("shouldnt");
+        shouldNotUpdateUser.setPassWord("naaaaah");
+        shouldNotUpdateUser.setUserId(MISSING_ID);
+
+        boolean updated = repository.update(shouldNotUpdateUser);
+
+    }
+
+    @Test
+    void shouldDeleteById() {
+        assertTrue(repository.deleteById(1));
+    }
+
+    @Test
+    void shouldNotDeleteById() {
+        assertFalse(repository.deleteById(MISSING_ID));
     }
 
     private User makeUser() {

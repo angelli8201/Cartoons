@@ -9,7 +9,7 @@ public interface UserRepository {
 
     User findById(int userId);
 
-    boolean add(User user);
+    User add(User user);
 
     boolean update(User user);
 
