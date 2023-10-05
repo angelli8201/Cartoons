@@ -1,0 +1,16 @@
+.custom-button-sign-in {
+border-radius: 5px 0 0 5px !important;
+padding-top: 1px !important;
+padding-bottom: 1px !important;
+}
+
+.custom-button-sign-up{
+    border-radius: 0 5px 5px 0 !important;
+    padding-top: 1px !important;
+    padding-bottom: 1px !important;
+}
+
+.custom-button-sign-out {
+    padding-top: 1px !important;
+    padding-bottom: 1px !important;
+}
