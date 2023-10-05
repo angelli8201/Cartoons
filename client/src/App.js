@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from "react-router-dom";
+
+import Header from "./components/Header";
+import Landing from "./pages/Landing";
+import ViewCartoons from "./pages/ViewCartoons";
+import Posts from "./pages/Posts";
+import ViewCartoonDetail from "./pages/ViewCartoonDetail";
+
+import "./styles/App.css";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Header />
+      <main className="container">
+        <Routes>
+          <Route path="/" element={<Landing end />} />
+          <Route path="/cartoons" element={<ViewCartoons />} />
+          <Route path="/cartoons/detail/:cartoonId" element={<ViewCartoonDetail />} />
+          <Route path="/posts" element={<Posts />} />
+        </Routes>
+      </main>
+    </Router>
   );
 }
 
