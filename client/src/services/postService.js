@@ -28,7 +28,7 @@ export async function findPostById(postId) {
 	}
 }
 
-async function addPost(post) {
+export async function addPost(post) {
 	const init = {
 		method: 'POST',
 		headers: {
