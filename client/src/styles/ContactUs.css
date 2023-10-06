@@ -34,12 +34,12 @@
     align-items: flex-start; 
 }
 
-label {
+.contact-label {
     color: white;
     font-weight: bold;
 }
 
-button {
+.contact-button {
     padding: 5px 5px;
     background-color: #007bff;
     color: #fff;
@@ -49,7 +49,7 @@ button {
     transition: background-color 0.2s;
 }
 
-button:hover {
+.contact-button:hover {
     background-color: #0056b3;
 }
 

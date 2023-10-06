@@ -9,7 +9,7 @@ export default function ContactUs() {
         <div>
             <h1>Contact Us</h1>
             <div className="contact-container">
-                <h3>Leave a Messaeg!</h3>
+                <h3>Leave a Message!</h3>
                 <p>
                     Have any concerns, compliments, cartoon suggestions?!
                     <br/>
@@ -22,23 +22,23 @@ export default function ContactUs() {
                 <div>
                     <form>
                         <div>
-                            <label htmlFor='firstName'>First Name:</label>
+                            <label className='contact-label' htmlFor='firstName'>First Name:</label>
                             <input type='text' id='firstName' name='firstName' />
                         </div>
                         <div>
-                            <label htmlFor="lastName">Last Name:</label>
+                            <label className='contact-label' htmlFor="lastName">Last Name:</label>
                             <input type="text" id="lastName" name="lastName" />
                         </div>
                         <div>
-                            <label htmlFor="email">Email Add:</label>
+                            <label className='contact-label' htmlFor="email">Email Add:</label>
                             <input type="email" id="email" name="email" />
                         </div>
                         <div>
-                            <label htmlFor="message">Message:</label>
+                            <label className='contact-label' htmlFor="message">Message:</label>
                             <textarea id="message" name="message" rows="4" cols="50"></textarea>
                         </div>
                         <div>
-                            <button type="submit">Submit</button>
+                            <button className='contact-button' type="submit">Submit</button>
                         </div>
                         
                     </form>
