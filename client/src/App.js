@@ -10,6 +10,7 @@ import ViewCartoons from "./pages/ViewCartoons";
 import Posts from "./pages/Posts";
 import ViewCartoonDetail from "./pages/ViewCartoonDetail";
 import Memes from "./pages/Memes";
+import NotFound from "./pages/NotFound";
 
 
 import "./styles/App.css";
@@ -28,6 +29,7 @@ function App() {
           <Route path="/posts" element={<Posts />} />
           <Route path="/memes" element={<Memes />} />
           <Route path="/postform" element={<PostForm />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
     </Router>

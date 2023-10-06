@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { findCartoonById } from "../services/cartoonApi2D";
-import { findAllPosts } from "../services/postService";
+import { findAllPosts, addPost } from "../services/postService";
 import { useAuth } from "../components/AuthProvider";
 import PlaceHolderImage from "../images/placeholder-girl.jpg";
 import PostFormModal from "../components/PostFormModal";
@@ -87,12 +87,23 @@ export default function ViewCartoonDetail() {
     setNewPost({ ...newPost, [name]: value });
   };
 
-  // TODO: add logic from service to add post
-  const handleAddPost = () => {
-    const updatedPosts = [
+  // TODO: debug add logic from service to add post
+  const handleAddPost = async () => {
+    const postToAdd = {...newPost};
+    try {
+      const response = await addPost(postToAdd);
+      console.log(response);
+      if(response.error) {
+        console.error(response.error);
+        setErrors(response.error)
+      }
+    } catch (error) {
+      console.error(error);
+      setErrors(error) 
+    } finally {
+          const updatedPosts = [
       ...posts,
       {
-        
         ...newPost,
         userId: user.userId,
       },
@@ -102,6 +113,10 @@ export default function ViewCartoonDetail() {
       updatedPosts.filter((post) => post.reference === data.title)
     );
     setShowModal(false);
+
+    }
+
+
   };
 
   return (
