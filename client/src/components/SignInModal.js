@@ -1,39 +1,41 @@
 import { useState, useEffect } from "react";
-import { findAllUsers } from "../services/userService";
 import { Modal, Button, Form } from "react-bootstrap";
 import FormErrors from "./FormErrors";
+import { useAuth } from "./AuthProvider";
+import { findAllUsers } from "../services/userService";
 
 export default function SignInModal({
   showSignInModal,
   toggleSignInModal,
   toggleSignUpModal,
+  handleSignInSuccess,
   setUserName,
   setPassWord,
-  setUser,
-  user,
   userName,
   passWord,
-  handleSignInSuccess,
   errors,
   setErrors,
 }) {
-  const [users, setUsers] = useState([]);
+  const { user } = useAuth();
   const [showSignUpLink, setShowSignUpLink] = useState(false);
+  const [users, setUsers] = useState([]);
 
-  const handleSignIn = () => {
-    const user = users.find((user) => {
-      if (user.userName === userName && user.passWord === passWord) {
-        setUser(user);
-        return user;
-      } else return null;
-    });
+  const handleSignIn = async () => {
+    try {
+      const newUser = users.find(
+        (user) => user.passWord === passWord && user.userName === userName
+      )
 
-    if (user) {
-      handleSignInSuccess(user);
-      toggleSignInModal();
-    } else {
-      setErrors(["Username and/or Password do not match."]);
-      setShowSignUpLink(true);
+      if (newUser) {
+        handleSignInSuccess(newUser);
+        toggleSignInModal();
+      } else {
+        setErrors(["Username and/or Password do not match."]);
+        setShowSignUpLink(true);
+      }
+    } catch (error) {
+      console.error("An error occurred during sign-in:", error);
+      setErrors([error.message]);
     }
   };
 
@@ -42,7 +44,6 @@ export default function SignInModal({
       try {
         const allUsers = await findAllUsers();
         setUsers(allUsers);
-        console.log(allUsers);
       } catch (error) {
         console.error("An error occurred while fetching users:", error);
         setErrors(error);
@@ -75,7 +76,7 @@ export default function SignInModal({
             <Form.Group controlId="password">
               <Form.Label>Password</Form.Label>
               <Form.Control
-                type="password"
+                type="passWord"
                 onChange={(e) => setPassWord(e.target.value)}
               />
             </Form.Group>
@@ -83,9 +84,8 @@ export default function SignInModal({
           </Form>
           {showSignUpLink && (
             <p>
-              Don't have an account? {" "}
+              Don't have an account?{" "}
               <span
-          
                 style={{ cursor: "pointer", color: "blue" }}
                 onClick={handleSignUpClick}
               >
