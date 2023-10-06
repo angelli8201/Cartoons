@@ -50,7 +50,7 @@ export async function addPost(post) {
 	}
 }
 
-async function updatePost(post) {
+export async function updatePost(post) {
 	const init = {
 		method: 'PUT',
 		headers: {
