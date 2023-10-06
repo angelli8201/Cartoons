@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import Post from '../components/Post'
+import PostCard from '../components/PostCard'
+import { Link, useNavigate, useParams } from 'react-router-dom';
 export default function Posts() {
     const [posts, setPosts] = useState([]);
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -22,12 +25,17 @@ export default function Posts() {
 
     return (
         <>
-        {posts.length == 0 ?
+        <Link className='btn btn-primary btn-lg mb-3' to = '/postform'>
+             Make a Post
+        </Link>
+        {posts.length === 0 ?
             <div className="alert alert-warning py-4">
                 No posts found.<br />
                 Do you want to add an post?
             </div>
-            : <Post post={posts} />}
+            :  (
+                posts.map(post => <PostCard key={post.id} post={post} />)
+            )}
     </>
 );
 }

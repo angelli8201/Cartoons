@@ -1,0 +1,72 @@
+.not-found-background {
+    background-image: url('../images/homer-simpson.gif');
+    width: 100%;
+    border-radius: 6px;
+    position: relative;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom right;
+    height: 100%
+  }
+
+.not-found-container {
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 87vh;
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid black;
+
+}
+
+.text-background {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 7px;
+}
+
+.text-background h1 {
+    font-size: 40px;
+}
+
+.text-background p {
+    font-size: 18px;
+}
+
+.redirect-count{
+    color: pink;
+}
+
+
+@media (max-width: 575px) {
+    .text-background h1 {
+      font-size: 30px;
+    }
+  
+    .text-background p {
+      font-size: 18px;
+    }
+  }
+  
+
+  @media (min-width: 576px) and (max-width: 991px) {
+    .text-background h1 {
+      font-size: 45px;
+    }
+  
+    .text-background p {
+      font-size: 20px;
+    }
+  }
+  
+
+  @media (min-width: 992px) {
+    .text-background h1 {
+      font-size: 60px;
+    }
+  
+    .text-background p {
+      font-size: 22px;
+    }
+  }
+
+
+
