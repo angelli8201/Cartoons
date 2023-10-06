@@ -3,7 +3,10 @@ import "../styles/ContactUs.css";
 
 export default function ContactUs() {
 
-    const gifUrl = 'https://media.tenor.com/YYJ8k1x8SmUAAAAC/dcau-justice-league-unlimited.gif'
+    const gifUrl = 'https://pa1.aminoapps.com/6936/0e7bbfd4cc42fce3584a6cfd50834405a4a48e48r1-500-500_00.gif';
+
+        
+    
 
     return (
         <div>
@@ -38,7 +41,7 @@ export default function ContactUs() {
                             <textarea id="message" name="message" rows="4" cols="50"></textarea>
                         </div>
                         <div>
-                            <button className='contact-button' type="submit">Submit</button>
+                            <button className='contact-button'>Submit</button>
                         </div>
                         
                     </form>
