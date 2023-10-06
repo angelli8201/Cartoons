@@ -11,7 +11,10 @@ import Posts from "./pages/Posts";
 import ViewCartoonDetail from "./pages/ViewCartoonDetail";
 import Memes from "./pages/Memes";
 
+
 import "./styles/App.css";
+import PostForm from "./components/PostForm";
+
 
 function App() {
   return (
@@ -19,11 +22,12 @@ function App() {
       <Header />
       <main className="container">
         <Routes>
-          <Route path="/" element={<Landing end />} />
+          <Route path="/" element={<Landing />} />
           <Route path="/cartoons" element={<ViewCartoons />} />
           <Route path="/cartoons/detail/:cartoonId" element={<ViewCartoonDetail />} />
           <Route path="/posts" element={<Posts />} />
           <Route path="/memes" element={<Memes />} />
+          <Route path="/postform" element={<PostForm />} />
         </Routes>
       </main>
     </Router>
