@@ -4,6 +4,7 @@ import "../styles/AboutUs.css";
 export default function AboutUs() {
 
     const aboutPicUrl = 'https://i.redd.it/d6scjdnnjula1.jpg';
+    const aboutGifUrl = 'https://i.kym-cdn.com/photos/images/original/001/420/517/9e2.gif';
 
     return (
         <div>
@@ -32,6 +33,10 @@ export default function AboutUs() {
                     <br/>
                     enjoy the company of others who are crazy for cartoons!
                 </p>
+                <div className='about-gif-container'>
+                     <img src={aboutGifUrl} alt="awesome ass gif from OK KO
+                     that brings on the Cartoon Network nostalgia" />
+                </div>
             </div>
         </div>
         
