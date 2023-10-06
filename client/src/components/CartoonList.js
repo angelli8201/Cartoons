@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { cartoonApi2D } from "../services/cartoonApi2D";
+import { findAllCartoons } from "../services/cartoonApi2D";
 import FormErrors from "./FormErrors";
 
 import CartoonListItem from "./CartoonListItem";
@@ -23,21 +23,22 @@ export default function CartoonList() {
     setData(cartoonData);
     setLoading(false);
 
-    // cartoonApi2D()
-    //   .then((data) => {
+    // async function fetchCartoons() {
+    //   try {
+    //     const data = await findAllCartoons();
     //     setData(data);
-    //     setLoading(false);
-    //   })
-    //   .catch((error) => {
+    //   } catch (error) {
     //     console.error(error);
     //     setErrors(error);
+    //   } finally {
     //     setLoading(false);
-    //   });
+    //   }
+    // }
+    
+    // fetchCartoons();
   }, []);
 
-  if (!data) {
-  } else {
-  }
+
 
   return (
     <>

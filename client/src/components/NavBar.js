@@ -1,32 +1,30 @@
 import { useState } from "react";
+import { useAuth } from "./AuthProvider";
 import { Navbar, Container, Nav, Modal, Button, Form } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import "../styles/NavBar.css"
+import "../styles/NavBar.css";
 
 import SignInModal from "./SignInModal";
 import SignUpModal from "./SignUpModal";
-import { addUser } from "../services/userService";
 
 function NavBar() {
-  const [signedIn, setSignedIn] = useState(false);
-  const [errors, setErrors] = useState(false);
   const [showSignInModal, setShowSignInModal] = useState(false);
   const [showSignUpModal, setShowSignUpModal] = useState(false);
-  const [user, setUser] = useState("");
   const [userName, setUserName] = useState("");
   const [passWord, setPassWord] = useState("");
+  const { user, setUser, signedIn, signIn, signOut, signUp, errors, setErrors } = useAuth();
 
-  const handleSignInSuccess = () => {
-    setSignedIn(true);
+  const handleSignInSuccess = (newUser) => {
+    console.log(newUser);
+    signIn(newUser);
     setShowSignInModal(false);
     resetModal();
   };
-  
+
   const handleSignOut = () => {
+    signOut();
     resetModal();
-    setUser("");
-    setSignedIn(false);
   };
 
   const toggleSignInModal = () => {
@@ -43,28 +41,27 @@ function NavBar() {
     setUserName("");
     setPassWord("");
     setErrors([]);
-  }
+  };
+
 
   const handleSignUp = async (userName, passWord) => {
     try {
       const newUser = { userName, passWord };
-      console.log(newUser);
-      const response = await addUser(newUser);
-      setUser(newUser);
-      toggleSignInModal()
+
+      const response = await signUp(newUser);
+
       if (response === null) {
         toggleSignUpModal();
+        toggleSignInModal();
       } else {
         console.error("User creation failed:", response);
-        setErrors(response);
+        setErrors(["User creation failed."]);
       }
     } catch (error) {
       console.error("An error occurred during sign-up:", error);
       setErrors([error.message]);
     }
   };
-
-
 
   return (
     <div>
@@ -95,16 +92,25 @@ function NavBar() {
               {signedIn ? (
                 <>
                   Signed in as: {user.userName}{" "}
-                  <Button className="btn btn-danger custom-button-sign-out" onClick={handleSignOut}>
+                  <Button
+                    className="btn btn-danger custom-button-sign-out"
+                    onClick={handleSignOut}
+                  >
                     Sign Out
                   </Button>
                 </>
               ) : (
                 <>
-                  <Button className="btn btn-secondary custom-button-sign-in" onClick={toggleSignInModal}>
+                  <Button
+                    className="btn btn-secondary custom-button-sign-in"
+                    onClick={toggleSignInModal}
+                  >
                     Sign In
                   </Button>
-                  <Button className="btn btn-dark custom-button-sign-up" onClick={toggleSignUpModal}>
+                  <Button
+                    className="btn btn-dark custom-button-sign-up"
+                    onClick={toggleSignUpModal}
+                  >
                     Sign Up
                   </Button>
                 </>
@@ -120,7 +126,6 @@ function NavBar() {
         toggleSignUpModal={toggleSignUpModal}
         setUserName={setUserName}
         setPassWord={setPassWord}
-        setUser={setUser}
         user={user}
         userName={userName}
         passWord={passWord}
