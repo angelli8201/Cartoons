@@ -49,7 +49,7 @@ public class PostJdbcTemplateRepository implements PostRepository {
         HashMap<String,Object> args = new HashMap<>();
         args.put("title", post.getTitle());
         args.put("caption", post.getCaption());
-        args.put("reference", post.getReference());
+        args.put("`reference`", post.getReference());
         args.put("user_id", post.getUserId());
 
         int postId = insert.executeAndReturnKey(args).intValue();

@@ -13,20 +13,14 @@ export default function ViewCartoonDetail() {
   const { cartoonId } = useParams();
   const [data, setData] = useState("");
   const [loading, setLoading] = useState(true);
-  const [isAddingPost, setIsAddingPost] = useState(false);
+  // const [isAddingPost, setIsAddingPost] = useState(false);
   const { user, signedIn, errors, setErrors } = useAuth();
-
-  const navigate = useNavigate();
-
-  const [newPost, setNewPost] = useState({
-    title: "",
-    caption: "",
-    reference: "",
-    userId: "",
-  });
+  const [newPost, setNewPost] = useState({});
   const [matchedPosts, setMatchedPosts] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [posts, setPosts] = useState([]);
+
+  const navigate = useNavigate();
 
   const handleImageError = (e) => {
     e.target.src = PlaceHolderImage;
@@ -36,7 +30,7 @@ export default function ViewCartoonDetail() {
     if (!signedIn) {
       navigate("/");
     }
-  },[signedIn, navigate]);
+  }, [signedIn, navigate]);
 
   useEffect(() => {
     if (cartoonId) {
@@ -78,45 +72,51 @@ export default function ViewCartoonDetail() {
 
   const toggleAddPostForm = () => {
     setShowModal(true);
-    setIsAddingPost(!isAddingPost);
-    setNewPost({ title: "", caption: "", reference: data.title, userId: user.userId });
+    // setIsAddingPost(!isAddingPost);
+    setNewPost({
+      title: "",
+      caption: "",
+      reference: data.title,
+      userId: user.userId,
+    });
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewPost({ ...newPost, [name]: value });
+    // console.log(newPost);
   };
 
   // TODO: debug add logic from service to add post
-  const handleAddPost = async () => {
-    const postToAdd = {...newPost};
+  const handleAddPost = async (e) => {
+    e.preventDefault();
+
+    console.log(newPost);
+    const postToAdd = { ...newPost };
     try {
       const response = await addPost(postToAdd);
-      console.log(response);
-      if(response.error) {
-        console.error(response.error);
-        setErrors(response.error)
+      // console.log(response);
+      if (!response) {
+        const updatedPosts = [
+          ...posts,
+          {
+            ...newPost,
+            userId: user.userId,
+          },
+        ];
+        setPosts(updatedPosts);
+        setMatchedPosts(
+          updatedPosts.filter((post) => post.reference === data.title)
+        );
+        setShowModal(false);
+      } else {
+        console.error(response);
+        setErrors(response);
       }
     } catch (error) {
       console.error(error);
-      setErrors(error) 
-    } finally {
-          const updatedPosts = [
-      ...posts,
-      {
-        ...newPost,
-        userId: user.userId,
-      },
-    ];
-    setPosts(updatedPosts);
-    setMatchedPosts(
-      updatedPosts.filter((post) => post.reference === data.title)
-    );
-    setShowModal(false);
-
-    }
-
-
+      setErrors(error);
+    } 
   };
 
   return (
@@ -148,6 +148,7 @@ export default function ViewCartoonDetail() {
       <PostFormModal
         showModal={showModal}
         setShowModal={setShowModal}
+        toggleAddPostForm={toggleAddPostForm}
         handleInputChange={handleInputChange}
         handleAddPost={handleAddPost}
         newPost={newPost}
