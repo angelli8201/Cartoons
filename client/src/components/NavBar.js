@@ -87,6 +87,12 @@ function NavBar() {
               <LinkContainer to="/memes">
                 <Nav.Link>Memes</Nav.Link>
               </LinkContainer>
+              <LinkContainer to="/about">
+                <Nav.Link>About</Nav.Link>
+              </LinkContainer>
+              <LinkContainer to="/contact">
+                <Nav.Link>Contact</Nav.Link>
+              </LinkContainer>
             </Nav>
             <Navbar.Text>
               {signedIn ? (
