@@ -1,28 +1,48 @@
 import { useState, useEffect } from "react";
-import { Card, Spinner } from "react-bootstrap";
+import { Card, Spinner, Button } from "react-bootstrap";
 import { findUserById } from "../services/userService";
+import { deletePostById } from "../services/postService";
+import { useAuth } from './AuthProvider';
+import { useNavigate } from 'react-router-dom';
 
 export default function PostCard({ post, setErrors }) {
-  const [user, setUser] = useState();
-  const [loading, setLoading] = useState(true);
+  
+  const [loading, setLoading] = useState(false);
+  const [author, setAuthor] = useState(null);
+  const { user } = useAuth();
+  const userId = user ? user.userId : null;
+  const navigate = useNavigate();
+
+
+  const handleDelete = async () => {
+    try {
+      await deletePostById(post.postId);
+      navigate("/");
+      
+    
+    } catch (error) {
+      console.error("Error deleting post:", error);
+    } 
+  };
+
+  const fetchUser = async () => {
+    try {
+      const user = await findUserById(post.userId);
+      setAuthor(user);
+    } catch (error) {
+      console.error("Error finding post user:", error);
+    }
+  };
 
   useEffect(() => {
-    if (post) {
-      async function fetchUser() {
-        try {
-          const userData = await findUserById(post.userId);
-          setUser(userData);
-        } catch (error) {
-          console.error(error);
-          setErrors(error);
-        } finally {
-          setLoading(false);
-        }
-      }
+    const fetchData = async () => {
+      setLoading(true);
+      await fetchUser();
+      setLoading(false);
+    };
 
-      fetchUser();
-    }
-  }, []);
+    fetchData();
+  }, [post.userId]);
 
   return (
     <>
@@ -35,14 +55,22 @@ export default function PostCard({ post, setErrors }) {
             <span className="visually-hidden">Loading...</span>
           </Spinner>
         </div>
-      ) : (<Card key={post.postId} className="mb-3">
-        <Card.Body>
-          <Card.Title>Title: {post.title}</Card.Title>
-          <Card.Text>{post.caption}</Card.Text>
-          <Card.Text>Posted By: {user.userName ?? "Unknown"}</Card.Text>
-          <Card.Text>RE: {post.reference}</Card.Text>
-        </Card.Body>
-      </Card>)}
+      ) : (
+        <Card key={post.postId} className="mb-3">
+          <Card.Body>
+            <Card.Title style={{ color: 'blue', fontSize: '2em' }}>Title: {post.title}</Card.Title>
+            <Card.Text style={{fontSize: '1.5em' }}>{post.caption}</Card.Text>
+            <Card.Text>Posted By: {author ? author.userName : "Unknown"}</Card.Text>
+            <Card.Text>RE: {post.reference}</Card.Text>
+            
+            {userId === post.userId && (
+              <Button variant="danger" onClick={handleDelete}>
+                Delete
+              </Button>
+            )}
+          </Card.Body>
+        </Card>
+      )}
     </>
   );
 }

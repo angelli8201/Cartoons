@@ -3,9 +3,12 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import PostCard from '../components/PostCard'
 import { Link, useNavigate, useParams } from 'react-router-dom';
+
+
 export default function Posts() {
     const [posts, setPosts] = useState([]);
     const navigate = useNavigate();
+    
 
 
     useEffect(() => {
@@ -25,6 +28,28 @@ export default function Posts() {
 
     return (
         <>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
+                <iframe
+                    src="https://giphy.com/embed/dJD0xpWqYDkic"
+                    width="480"
+                    height="365"
+                    frameBorder="0"
+                    className="giphy-embed"
+                    allowFullScreen
+                    style={{ margin: '10px' }}
+                />
+                <iframe
+                    src="https://giphy.com/embed/YAnpMSHcurJVS"
+                    width="480"
+                    height="360"
+                    frameBorder="0"
+                    className="giphy-embed"
+                    allowFullScreen
+                    style={{ margin: '10px' }}
+                />
+            </div>
+        
+        <p></p>
         <Link className='btn btn-primary btn-lg mb-3' to = '/postform'>
              Make a Post
         </Link>
