@@ -5,6 +5,7 @@ export default function PostFormModal({
   setShowModal,
   handleInputChange,
   handleAddPost,
+  toggleAddPostForm,
   newPost,
 }) {
   return (
@@ -48,7 +49,7 @@ export default function PostFormModal({
         <Button variant="secondary" onClick={() => setShowModal(false)}>
           Close
         </Button>
-        <Button variant="primary" onClick={handleAddPost}>
+        <Button variant="primary" onClick={(e) => handleAddPost(e)}>
           Add Post
         </Button>
       </Modal.Footer>
