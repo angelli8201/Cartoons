@@ -1,0 +1,14 @@
+.posts-page-container {
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 83vh;
+    width: 100%;
+    padding: 20px;
+    border-radius: 0 0 7px 7px;
+    border: 1px solid black;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.posts-page-add-btn {
+    border-radius: 7px 7px 0 0 !important;
+}

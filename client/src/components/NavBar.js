@@ -4,6 +4,7 @@ import { Navbar, Container, Nav, Modal, Button, Form } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../styles/NavBar.css";
+import BMo from "../images/b-mo.png"
 
 import SignInModal from "./SignInModal";
 import SignUpModal from "./SignUpModal";
@@ -13,10 +14,10 @@ function NavBar() {
   const [showSignUpModal, setShowSignUpModal] = useState(false);
   const [userName, setUserName] = useState("");
   const [passWord, setPassWord] = useState("");
-  const { user, setUser, signedIn, signIn, signOut, signUp, errors, setErrors } = useAuth();
+  const { user, signedIn, signIn, signOut, signUp, errors, setErrors } = useAuth();
 
   const handleSignInSuccess = (newUser) => {
-    console.log(newUser);
+
     signIn(newUser);
     setShowSignInModal(false);
     resetModal();
@@ -64,12 +65,12 @@ function NavBar() {
   };
 
   return (
-    <div>
+    <div className="navbar-container">
       <Navbar expand="lg" bg="info" data-bs-theme="light">
         <Container>
           <LinkContainer to="/">
             <Navbar.Brand>
-              Cartoons <i className="bi bi-film"></i>
+              <span className="navbar-title">CARTOONS</span><img src={BMo} alt="B-Mo from Adventure Time." className="navbar-logo"></img>
             </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />

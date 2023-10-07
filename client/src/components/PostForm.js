@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthProvider';
 const BASE_URL = 'http://localhost:8080/cartoons/post';
 

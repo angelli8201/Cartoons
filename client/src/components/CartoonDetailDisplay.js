@@ -10,6 +10,7 @@ export default function CartoonDetailDisplay({
   matchedPosts,
   errors,
   setErrors,
+  handleDelete,
 }) {
   return (
     <>
@@ -60,7 +61,12 @@ export default function CartoonDetailDisplay({
             <div>No posts for this cartoon... yet!</div>
           ) : (
             matchedPosts.map((post) => (
-              <PostCard post={post} setErrors={setErrors} />
+              <PostCard
+                key={post.id}
+                post={post}
+                setErrors={setErrors}
+                handleDelete={handleDelete}
+              />
             ))
           )}
         </div>

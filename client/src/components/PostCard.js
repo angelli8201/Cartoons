@@ -1,29 +1,15 @@
 import { useState, useEffect } from "react";
 import { Card, Spinner, Button } from "react-bootstrap";
 import { findUserById } from "../services/userService";
-import { deletePostById } from "../services/postService";
 import { useAuth } from './AuthProvider';
-import { useNavigate } from 'react-router-dom';
 
-export default function PostCard({ post, setErrors }) {
+export default function PostCard({ post, handleDelete, setErrors, cartoonDetail }) {
   
   const [loading, setLoading] = useState(false);
   const [author, setAuthor] = useState(null);
   const { user } = useAuth();
   const userId = user ? user.userId : null;
-  const navigate = useNavigate();
 
-
-  const handleDelete = async () => {
-    try {
-      await deletePostById(post.postId);
-      navigate("/");
-      
-    
-    } catch (error) {
-      console.error("Error deleting post:", error);
-    } 
-  };
 
   const fetchUser = async () => {
     try {
@@ -31,6 +17,7 @@ export default function PostCard({ post, setErrors }) {
       setAuthor(user);
     } catch (error) {
       console.error("Error finding post user:", error);
+      setErrors(error)
     }
   };
 
@@ -63,8 +50,8 @@ export default function PostCard({ post, setErrors }) {
             <Card.Text>Posted By: {author ? author.userName : "Unknown"}</Card.Text>
             <Card.Text>RE: {post.reference}</Card.Text>
             
-            {userId === post.userId && (
-              <Button variant="danger" onClick={handleDelete}>
+            {(userId === post.userId && cartoonDetail === false) && (
+              <Button variant="danger" onClick={() => handleDelete(post)}>
                 Delete
               </Button>
             )}

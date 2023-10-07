@@ -10,9 +10,8 @@ export default function ContactUs() {
 
     return (
         <div>
-            <h1>Contact Us</h1>
-            <div className="contact-container">
-                <h3>Leave a Message!</h3>
+            <div className="contact-container mt-4">
+                <h1>Leave a Message!</h1>
                 <p>
                     Have any concerns, compliments, cartoon suggestions?!
                     <br/>
