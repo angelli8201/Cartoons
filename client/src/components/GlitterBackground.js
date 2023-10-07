@@ -1,4 +1,3 @@
-import React from 'react';
 import '../styles/GlitterBackground.css';
 
 const GlitterBackground = () => {
@@ -10,7 +9,7 @@ const GlitterBackground = () => {
   };
 
 
-  const glitterFlakes = Array.from({ length: 50 }, (_, index) => {
+  const glitterFlakes = Array.from({ length: 50 }, (index) => {
     const { x, y } = randomizePosition();
     const animationDelay = Math.random() * 2;
     const style = {
