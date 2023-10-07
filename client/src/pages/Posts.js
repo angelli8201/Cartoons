@@ -95,9 +95,9 @@ export default function Posts() {
             Do you want to add a post?
           </div>
         ) : (
-          posts.map((post) => (
+          posts.map((post, idx) => (
             <PostCard
-              key={post.id}
+              key={`${post.id}-${idx}`}
               post={post}
               handleDelete={handleDelete}
               setErrors={setErrors}
