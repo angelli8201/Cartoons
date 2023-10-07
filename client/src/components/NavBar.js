@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "./AuthProvider";
-import { Navbar, Container, Nav, Modal, Button, Form } from "react-bootstrap";
+import { Navbar, Container, Nav, Button, Form } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../styles/NavBar.css";

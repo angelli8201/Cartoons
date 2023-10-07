@@ -60,9 +60,9 @@ export default function CartoonDetailDisplay({
           {matchedPosts.length === 0 ? (
             <div>No posts for this cartoon... yet!</div>
           ) : (
-            matchedPosts.map((post) => (
+            matchedPosts.map((post, idx) => (
               <PostCard
-                key={post.id}
+                key={`${post.id}-${idx}`}
                 post={post}
                 setErrors={setErrors}
                 handleDelete={handleDelete}

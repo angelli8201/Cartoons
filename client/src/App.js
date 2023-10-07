@@ -15,7 +15,7 @@ import ContactUs from "./pages/ContactUs";
 import NotFound from "./pages/NotFound";
 
 
-import "./styles/App.css";
+import "./App.css";
 import GlitterBackground from './components/GlitterBackground';
 import PostForm from "./components/PostForm";
 

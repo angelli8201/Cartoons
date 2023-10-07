@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import {Col, Row} from "react-bootstrap";
-import NotFoundGif from "../images/homer-simpson.gif"
 
 import "../styles/NotFound.css"
 

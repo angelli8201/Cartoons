@@ -1,15 +1,18 @@
 import { useState, useEffect } from "react";
 import { Card, Spinner, Button } from "react-bootstrap";
 import { findUserById } from "../services/userService";
-import { useAuth } from './AuthProvider';
+import { useAuth } from "./AuthProvider";
 
-export default function PostCard({ post, handleDelete, setErrors, cartoonDetail }) {
-  
+export default function PostCard({
+  post,
+  handleDelete,
+  setErrors,
+  cartoonDetail,
+}) {
   const [loading, setLoading] = useState(false);
   const [author, setAuthor] = useState(null);
   const { user } = useAuth();
   const userId = user ? user.userId : null;
-
 
   const fetchUser = async () => {
     try {
@@ -17,7 +20,7 @@ export default function PostCard({ post, handleDelete, setErrors, cartoonDetail 
       setAuthor(user);
     } catch (error) {
       console.error("Error finding post user:", error);
-      setErrors(error)
+      setErrors(error);
     }
   };
 
@@ -45,12 +48,16 @@ export default function PostCard({ post, handleDelete, setErrors, cartoonDetail 
       ) : (
         <Card key={post.postId} className="mb-3">
           <Card.Body>
-            <Card.Title style={{ color: 'blue', fontSize: '2em' }}>Title: {post.title}</Card.Title>
-            <Card.Text style={{fontSize: '1.5em' }}>{post.caption}</Card.Text>
-            <Card.Text>Posted By: {author ? author.userName : "Unknown"}</Card.Text>
+            <Card.Title style={{ color: "blue", fontSize: "2em" }}>
+              Title: {post.title}
+            </Card.Title>
+            <Card.Text style={{ fontSize: "1.5em" }}>{post.caption}</Card.Text>
+            <Card.Text>
+              Posted By: {author ? author.userName : "Unknown"}
+            </Card.Text>
             <Card.Text>RE: {post.reference}</Card.Text>
-            
-            {(userId === post.userId && cartoonDetail === false) && (
+
+            {userId === post.userId && cartoonDetail === false && (
               <Button variant="danger" onClick={() => handleDelete(post)}>
                 Delete
               </Button>

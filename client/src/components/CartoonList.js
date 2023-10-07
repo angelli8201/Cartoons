@@ -3,42 +3,30 @@ import { findAllCartoons } from "../services/cartoonApi2D";
 import FormErrors from "./FormErrors";
 
 import CartoonListItem from "./CartoonListItem";
-import DataTwoD from "../data/cartoons2D.json";
-import DataThreeD from "../data/cartoons3D.json";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { Spinner } from "react-bootstrap";
 
 export default function CartoonList() {
-  // TODO: Create useEffect from cartoonApi service import real data
-
   const [data, setData] = useState("");
   const [loading, setLoading] = useState(true);
   const [errors, setErrors] = useState([]);
 
-  const cartoonData = DataTwoD;
-
   useEffect(() => {
+    async function fetchCartoons() {
+      try {
+        const data = await findAllCartoons();
+        setData(data);
+      } catch (error) {
+        console.error(error);
+        setErrors(error);
+      } finally {
+        setLoading(false);
+      }
+    }
 
-    setData(cartoonData);
-    setLoading(false);
-
-    // async function fetchCartoons() {
-    //   try {
-    //     const data = await findAllCartoons();
-    //     setData(data);
-    //   } catch (error) {
-    //     console.error(error);
-    //     setErrors(error);
-    //   } finally {
-    //     setLoading(false);
-    //   }
-    // }
-    
-    // fetchCartoons();
+    fetchCartoons();
   }, []);
-
-
 
   return (
     <>

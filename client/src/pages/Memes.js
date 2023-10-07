@@ -19,8 +19,6 @@ function Memes() {
         'https://imgix.ranker.com/user_node_img/50007/1000132716/original/fry-on-internet-logins-photo-u2?auto=format&q=60&fit=crop&fm=pjpg&dpr=2&w=375',
         'https://i.redd.it/r0xwu22wow661.jpg',
         'https://img-9gag-fun.9cache.com/photo/aOQgBR2_460s.jpg',
-
-        // Add more memes here
     ];
 
     useEffect(() => {
