@@ -1,7 +1,7 @@
 .not-found-background {
     background-image: url('../images/homer-simpson.gif');
     width: 100%;
-    border-radius: 6px;
+    border-radius: 7px;
     position: relative;
     background-repeat: no-repeat;
     background-size: cover;
