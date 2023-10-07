@@ -16,6 +16,7 @@ import NotFound from "./pages/NotFound";
 
 
 import "./styles/App.css";
+import GlitterBackground from './components/GlitterBackground';
 import PostForm from "./components/PostForm";
 
 
@@ -23,7 +24,9 @@ import PostForm from "./components/PostForm";
 function App() {
   return (
     <Router>
+      <GlitterBackground />
       <Header />
+      
       <main className="container">
         <Routes>
           <Route path="/" element={<Landing />} />
@@ -36,7 +39,9 @@ function App() {
           <Route path="/postform" element={<PostForm />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
+        
       </main>
+      
     </Router>
   );
 }

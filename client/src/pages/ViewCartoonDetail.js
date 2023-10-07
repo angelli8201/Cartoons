@@ -13,13 +13,12 @@ export default function ViewCartoonDetail() {
   const { cartoonId } = useParams();
   const [data, setData] = useState("");
   const [loading, setLoading] = useState(true);
-  // const [isAddingPost, setIsAddingPost] = useState(false);
   const { user, signedIn, errors, setErrors } = useAuth();
   const [newPost, setNewPost] = useState({});
   const [matchedPosts, setMatchedPosts] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [posts, setPosts] = useState([]);
-
+  const cartoonDetail = true;
   const navigate = useNavigate();
 
   const handleImageError = (e) => {
@@ -53,26 +52,25 @@ export default function ViewCartoonDetail() {
     }
   }, [cartoonId]);
 
-  useEffect(() => {
-    async function fetchPosts() {
-      try {
-        const postData = await findAllPosts();
-        setPosts(postData);
-        setMatchedPosts(posts.filter((post) => post.reference === data.title));
-      } catch (error) {
-        console.error(error);
-        setErrors(error);
-      } finally {
-        setLoading(false);
-      }
+  const fetchPosts = async () => {
+    try {
+      const postData = await findAllPosts();
+      setPosts(postData);
+      setMatchedPosts(posts.filter((post) => post.reference === data.title));
+    } catch (error) {
+      console.error(error);
+      setErrors(error);
+    } finally {
+      setLoading(false);
     }
+  };
 
+  useEffect(() => {
     fetchPosts();
   }, [data]);
 
   const toggleAddPostForm = () => {
     setShowModal(true);
-    // setIsAddingPost(!isAddingPost);
     setNewPost({
       title: "",
       caption: "",
@@ -84,23 +82,20 @@ export default function ViewCartoonDetail() {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewPost({ ...newPost, [name]: value });
-    // console.log(newPost);
   };
 
-  // TODO: debug add logic from service to add post
   const handleAddPost = async (e) => {
     e.preventDefault();
 
-    console.log(newPost);
     const postToAdd = { ...newPost };
     try {
       const response = await addPost(postToAdd);
-      // console.log(response);
       if (!response) {
         const updatedPosts = [
           ...posts,
           {
             ...newPost,
+            postId: Math.max(...posts.map((post) => post.postId)) + 1,
             userId: user.userId,
           },
         ];
@@ -116,8 +111,9 @@ export default function ViewCartoonDetail() {
     } catch (error) {
       console.error(error);
       setErrors(error);
-    } 
+    }
   };
+
 
   return (
     <div className="cartoon-container mt-4">
@@ -142,6 +138,7 @@ export default function ViewCartoonDetail() {
             errors={errors}
             setErrors={setErrors}
             user={user}
+            cartoonDetail={cartoonDetail}
           />
         </Row>
       )}

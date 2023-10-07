@@ -31,8 +31,9 @@ function Memes() {
 
     return (
         <div>
-            <h1>Memes Page</h1>
-            <div className="memes-list-container">
+            
+            <div className="memes-list-container mt-4 pt-0">
+            <h1 className="meme-title">MEMES</h1>
                 {memes.map((memeUrl, index) => (
                     <div key={index} className="meme">
                         <img src={memeUrl} alt={`Meme ${index + 1}`} />

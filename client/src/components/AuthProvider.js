@@ -11,7 +11,6 @@ export const AuthProvider = ({ children }) => {
   const signIn = (userData) => {
     setUser(userData);
     setSignedIn(true);
-    console.log(userData);
   };
 
   const signUp = async (userData) => {
