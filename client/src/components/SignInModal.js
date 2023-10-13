@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import FormErrors from "./FormErrors";
 import { useAuth } from "./AuthProvider";
-import { findAllUsers,login } from "../services/userService";
-
+import { findAllUsers, login } from "../services/userService";
 
 export default function SignInModal({
   showSignInModal,
@@ -25,28 +24,25 @@ export default function SignInModal({
   const [showSignUpLink, setShowSignUpLink] = useState(false);
   // const [users, setUsers] = useState([]);
 
-  const handleSignIn = async () => {
-    try {
+  const handleSignIn = () => {
       evt.preventDefault();
       setErrors([]);
       login(credentials)
-        .then(user => {
-          handleLoggedIn(user);
+        .then((user) => {
+          // handleLoggedIn(user);
+
+          if (user) {
+            handleSignInSuccess(user);
+            toggleSignInModal();
+          } else {
+            setErrors(["Username and/or Password do not match."]);
+            setShowSignUpLink(true);
+          }
         })
-        .catch(err => {
-          setErrors(['Invalid username/password.']);
-        })
-      if (newUser) {
-        handleSignInSuccess(newUser);
-        toggleSignInModal();
-      } else {
-        setErrors(["Username and/or Password do not match."]);
-        setShowSignUpLink(true);
-      }
-    } catch (error) {
-      console.error("An error occurred during sign-in:", error);
-      setErrors([error.message]);
-    }
+        .catch((err) => {
+          console.error("An error occurred during sign-in:", error);
+          setErrors([error.message]);
+        });
   };
 
   // useEffect(() => {
@@ -62,8 +58,6 @@ export default function SignInModal({
 
   //   fetchData();
   // }, [user]);
-
-  
 
   const handleSignUpClick = () => {
     toggleSignInModal();
