@@ -2,19 +2,14 @@ package app.cartoons.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Result<T> {
-
-    private final ArrayList<String> messages = new ArrayList<>();
-    private ResultType type = ResultType.SUCCESS;
     private T payload;
+    private ArrayList<String> messages = new ArrayList<>();
 
-    public ResultType getType() {
-        return type;
-    }
-
-    public boolean isSuccess() {
-        return type == ResultType.SUCCESS;
+    public void addMessage(String message) {
+        messages.add(message);
     }
 
     public T getPayload() {
@@ -29,9 +24,28 @@ public class Result<T> {
         return new ArrayList<>(messages);
     }
 
-    public void addMessage(String message, ResultType type) {
-        messages.add(message);
-        this.type = type;
+    public boolean isSuccess() {
+        return messages.isEmpty();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Result<?> result = (Result<?>) o;
+        return Objects.equals(payload, result.payload) && Objects.equals(messages, result.messages);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(payload, messages);
+    }
+
+    @Override
+    public String toString() {
+        return "Result{" +
+                "payload=" + payload +
+                ", messages=" + messages +
+                '}';
+    }
 }

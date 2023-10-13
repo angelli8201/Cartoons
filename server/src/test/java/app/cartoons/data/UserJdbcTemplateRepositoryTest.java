@@ -39,7 +39,7 @@ class UserJdbcTemplateRepositoryTest {
     void shouldFindAngel() {
         User angel = repository.findById(2);
         assertEquals(2, angel.getUserId());
-        assertEquals("Angel", angel.getUserName());
+        assertEquals("Angel", angel.getUsername());
     }
 
     @Test

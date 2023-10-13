@@ -5,15 +5,24 @@ import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class UserMapper implements RowMapper<User>{
-    @Override
-    public User mapRow(ResultSet resultSet, int i) throws SQLException {
-        User user = new User();
-        user.setUserId(resultSet.getInt("user_id"));
-        user.setUserName(resultSet.getString("user_name"));
-        user.setPassWord(resultSet.getString("pass_word"));
 
-        return user;
+    private final List<String> authorities;
+
+    public UserMapper(List<String> authorities) {
+        this.authorities = authorities;
+    }
+
+    @Override
+    public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+        return new User(
+                rs.getInt("user_id"),
+                rs.getString("user_name"),
+                rs.getString("pass_word"),
+                rs.getBoolean("enabled"),
+                authorities
+        );
     }
 }

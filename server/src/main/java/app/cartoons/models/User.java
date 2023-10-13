@@ -1,21 +1,32 @@
 package app.cartoons.models;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
-public class User {
-
-    private int userId;
+public class User implements UserDetails {
+    private  int userId;
     private String userName;
     private String passWord;
+    private boolean enabled;
 
-    private List<Post> posts = new ArrayList<>();
+    private List<SimpleGrantedAuthority> authorities = new ArrayList<>();
 
-    public User(int userId, String userName, String passWord) {
+    public User() {}
+
+    public User(int userId, String userName, String passWord, boolean enabled, List<String> authorities) {
         this.userId = userId;
         this.userName = userName;
         this.passWord = passWord;
+        this.enabled = enabled;
+        this.authorities = authorities.stream()
+                .map(r -> new SimpleGrantedAuthority(r))
+                .toList();
     }
 
     public int getUserId() {
@@ -26,7 +37,47 @@ public class User {
         this.userId = userId;
     }
 
-    public User() {
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
+    }
+
+    @Override
+    public String getPassword() {
+        return this.passWord;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.userName;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return this.enabled;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User appUser = (User) o;
+        return userId == appUser.userId && enabled == appUser.enabled && Objects.equals(userName, appUser.userName) && Objects.equals(passWord, appUser.passWord) && Objects.equals(authorities, appUser.authorities);
     }
 
     public String getUserName() {
@@ -45,24 +96,19 @@ public class User {
         this.passWord = passWord;
     }
 
-    public List<Post> getPosts() {
-        return posts;
-    }
-
-    public void setPosts(List<Post> posts) {
-        this.posts = posts;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return userId == user.userId && Objects.equals(userName, user.userName) && Objects.equals(passWord, user.passWord) && Objects.equals(posts, user.posts);
-    }
-
     @Override
     public int hashCode() {
-        return Objects.hash(userId, userName, passWord, posts);
+        return Objects.hash(userId, userName, passWord, enabled, authorities);
+    }
+
+    @Override
+    public String toString() {
+        return "AppUser{" +
+                "id=" + userId +
+                ", username='" + userName + '\'' +
+                ", passwordHash='" + passWord + '\'' +
+                ", enabled=" + enabled +
+                ", authorities=" + authorities +
+                '}';
     }
 }

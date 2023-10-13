@@ -25,16 +25,16 @@ public class PostService {
     private Result<Post> validate(Post post) {
         Result<Post> result = new Result<>();
         if (post == null) {
-            result.addMessage("post cannot be null", ResultType.INVALID);
+            result.addMessage("post cannot be null");
             return result;
         }
 
         if (Validations.isNullOrBlank(post.getTitle())) {
-            result.addMessage("title is required", ResultType.INVALID);
+            result.addMessage("title is required");
         }
 
         if (post.getUserId() <= 0) {
-            result.addMessage("userId is required", ResultType.INVALID);
+            result.addMessage("userId is required");
         }
         return result;
     }
@@ -46,7 +46,7 @@ public class PostService {
         }
 
         if (post.getPostId() != 0) {
-            result.addMessage("postId cannot be set for `add` operation", ResultType.INVALID);
+            result.addMessage("postId cannot be set for `add` operation");
             return result;
         }
 
@@ -62,13 +62,13 @@ public class PostService {
         }
 
         if (post.getPostId() <= 0) {
-            result.addMessage("postId must be set for `update` operation", ResultType.INVALID);
+            result.addMessage("postId must be set for `update` operation");
             return result;
         }
 
         if (!repository.update(post)) {
             String msg = String.format("postId: %s, not found", post.getPostId());
-            result.addMessage(msg, ResultType.NOT_FOUND);
+            result.addMessage(msg);
         }
 
         return result;
