@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import FormErrors from "./FormErrors";
 import { useAuth } from "./AuthProvider";
-import { findAllUsers } from "../services/userService";
+import { findAllUsers,login } from "../services/userService";
+
 
 export default function SignInModal({
   showSignInModal,
@@ -16,16 +17,25 @@ export default function SignInModal({
   errors,
   setErrors,
 }) {
-  const { user } = useAuth();
+  const { user, setUser, errors, setErrors } = useAuth();
+  const [credentials, setCredentials] = useState({
+    username: "",
+    password: "",
+  });
   const [showSignUpLink, setShowSignUpLink] = useState(false);
-  const [users, setUsers] = useState([]);
+  // const [users, setUsers] = useState([]);
 
   const handleSignIn = async () => {
     try {
-      const newUser = users.find(
-        (user) => user.passWord === passWord && user.userName === userName
-      )
-
+      evt.preventDefault();
+      setErrors([]);
+      login(credentials)
+        .then(user => {
+          handleLoggedIn(user);
+        })
+        .catch(err => {
+          setErrors(['Invalid username/password.']);
+        })
       if (newUser) {
         handleSignInSuccess(newUser);
         toggleSignInModal();
@@ -39,19 +49,21 @@ export default function SignInModal({
     }
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const allUsers = await findAllUsers();
-        setUsers(allUsers);
-      } catch (error) {
-        console.error("An error occurred while fetching users:", error);
-        setErrors(error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const allUsers = await findAllUsers();
+  //       setUsers(allUsers);
+  //     } catch (error) {
+  //       console.error("An error occurred while fetching users:", error);
+  //       setErrors(error);
+  //     }
+  //   };
 
-    fetchData();
-  }, [user]);
+  //   fetchData();
+  // }, [user]);
+
+  
 
   const handleSignUpClick = () => {
     toggleSignInModal();
