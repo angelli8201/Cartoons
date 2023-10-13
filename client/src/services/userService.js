@@ -1,6 +1,39 @@
 import { BASE_URL } from './baseUrl';
 
-const endpointUrl = BASE_URL + '/user';
+
+
+export async function login(credentials) {
+
+	const init = {
+	  method: 'POST',
+	  headers: {
+		'Content-Type': 'application/json',
+		'Accept': 'application/json',
+	  },
+	  body: JSON.stringify(credentials)
+	};
+  
+	const response = await fetch(BASE_URL + '/login', init);
+	if (response.status === 200) {
+	  const jwtTokenResponse = await response.json();
+	  localStorage.setItem('jwt_token', jwtTokenResponse.jwt_token);
+	  return makeUserFromJwt(jwtTokenResponse.jwt_token);
+	} else {
+	  return Promise.reject('Unauthorized.');
+	}
+  }
+
+  function makeUserFromJwt(jwtToken) {
+	const jwtParts = jwtToken.split('.');
+	if (jwtParts.length === 3) {
+	  const userData = atob(jwtParts[1]);
+	  const decodedToken = JSON.parse(userData);
+	  return {
+		username: decodedToken.sub,
+		authorities: decodedToken.authorities
+	  };
+	}
+}
 
 export async function findAllUsers() {
 	const response = await fetch(endpointUrl);
