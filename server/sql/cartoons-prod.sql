@@ -5,7 +5,7 @@ use cartoons;
 -- create tables and relationships
 create table `user` (
     user_id int primary key auto_increment,
-    user_name varchar(25) not null,
+    user_name varchar(25) not null unique,
     pass_word varchar(25) not null
 );
 

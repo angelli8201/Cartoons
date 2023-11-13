@@ -34,7 +34,7 @@ public class PostController {
         if (result.isSuccess()) {
             return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
         }
-        return ErrorResponse.build(result);
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @PutMapping("/{postId}")
@@ -48,7 +48,7 @@ public class PostController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
-        return ErrorResponse.build(result);
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @DeleteMapping("/{postId}")
